@@ -31,11 +31,28 @@
     NSArray *nibObjects = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
     self = (ANActivityIndicatorView *)[nibObjects objectAtIndex:0];
     
+    if (self.customActivityIndicator) {
+        NSArray *pngAssetsPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil];
+        NSArray *animationImagesPaths = [pngAssetsPaths filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF contains %@", self.customActivityImageNamePattern]];
+        
+        NSMutableArray *animationImages = [NSMutableArray new];
+        for (NSString *path in animationImagesPaths) {
+            NSString *imageName = [UIImage imageNamed:[[path lastPathComponent] stringByDeletingPathExtension]];
+            [animationImages addObject:imageName];
+        }
+        
+        self.customActivityIndicator.animationImages = animationImages;
+        // Repeat the annimation forever.
+        self.customActivityIndicator.animationRepeatCount = 0;
+    }
+    
     return self;
 }
 
 - (void)showInView:(UIView *)view
 {
+    [self.customActivityIndicator startAnimating];
+    
     self.frame = view.bounds;
     self.center = view.center;
     [view addSubview:self];
@@ -43,6 +60,7 @@
 
 - (void)hide
 {
+    [self.customActivityIndicator startAnimating];
     [self removeFromSuperview];
 }
 

@@ -23,6 +23,9 @@
 @interface ANActivityIndicatorView : UIView
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *customActivityIndicator;
+
+@property (strong, nonatomic) NSString *customActivityImageNamePattern;
 
 - (id)initWithNibName:(NSString *)nibName;
 
