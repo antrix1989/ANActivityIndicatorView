@@ -56,10 +56,18 @@
     self.frame = view.bounds;
     self.center = view.center;
     [view addSubview:self];
+    
+    if ([view isKindOfClass:UIScrollView.class]) {
+        [(UIScrollView *)view setScrollEnabled:NO];
+    }
 }
 
 - (void)hide
 {
+    if ([self.superview isKindOfClass:UIScrollView.class]) {
+        [(UIScrollView *)self.superview setScrollEnabled:YES];
+    }
+    
     [self.customActivityIndicator stopAnimating];
     [self removeFromSuperview];
 }
