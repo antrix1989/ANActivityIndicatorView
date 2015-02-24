@@ -60,7 +60,7 @@
 
 - (void)hide
 {
-    [self.customActivityIndicator startAnimating];
+    [self.customActivityIndicator stopAnimating];
     [self removeFromSuperview];
 }
 
