@@ -21,7 +21,6 @@
 // THE SOFTWARE.
 
 #import "ANActivityIndicatorView.h"
-#import "Masonry.h"
 
 @interface ANActivityIndicatorView()
 
@@ -89,12 +88,7 @@
     [self.customActivityIndicator startAnimating];
     
     [view addSubview:self];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view.mas_top);
-        make.bottom.equalTo(view.mas_bottom);
-        make.left.equalTo(view.mas_left);
-        make.right.equalTo(view.mas_right);
-    }];
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if ([view isKindOfClass:UIScrollView.class]) {
         [(UIScrollView *)view setScrollEnabled:NO];
