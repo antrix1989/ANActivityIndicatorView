@@ -88,7 +88,12 @@
     [self.customActivityIndicator startAnimating];
     
     [view addSubview:self];
-    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    id views = @{ @"activityIndicatorView" : self };
+    
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[activityIndicatorView]|" options:0 metrics:nil views:views]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[activityIndicatorView]|" options:0 metrics:nil views:views]];
     
     if ([view isKindOfClass:UIScrollView.class]) {
         [(UIScrollView *)view setScrollEnabled:NO];
